@@ -1,9 +1,5 @@
 const { database } = require('../database');
 
-// const { promisify } = require('util');
-
-// const dbQuery = promisify(database.query);
-
 exports.getUsers = (req, res, next) => {
   try {
     const query = 'SELECT * FROM users';
@@ -28,18 +24,22 @@ exports.getUsers = (req, res, next) => {
   }
 };
 
-exports.getUser = (req, res, next) => {
-  const query = `SELECT * FROM users WHERE email = "${req.body.email}"`;
-  database.query(query, (err, results) => {
-    if (err) {
-      console.log('Error', err);
-      throw err;
-    }
-    res.status(200).json({
-      status: 'success',
-      results: results
+exports.getUser = async (req, res, next) => {
+  try {
+    const query = `SELECT * FROM users WHERE email = "${req.body.email}"`;
+    database.query(query, (err, results) => {
+      if (err) {
+        console.log('Error', err);
+        throw err;
+      }
+      res.status(200).json({
+        status: 'success',
+        results: results
+      });
     });
-  });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.addUser = async (req, res, next) => {
