@@ -1,5 +1,5 @@
 {
-  "name": "mysql",
+  "name": "mysql_for_kuberneties",
   "version": "1.0.0",
   "description": "This is a test for pulling users from mysql database and authenticate",
   "main": "index.js",
